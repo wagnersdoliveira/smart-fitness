@@ -1,7 +1,7 @@
 {
-  "name": "openGym",
-  "short_name": "openGym",
-  "description": "Personal gym & body weight tracker",
+  "name": "Smart Fitness",
+  "short_name": "Smart Fitness",
+  "description": "Smart Fitness & Nutrição",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",

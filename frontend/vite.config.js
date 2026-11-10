@@ -108,6 +108,7 @@ export default defineConfig({
   plugins: [react(), umami, flavor, swStamp, catalogueMedia],
   base: './',
   server: {
+    allowedHosts: ['engaja-casa.tailc6e2c2.ts.net', 'localhost', '127.0.0.1'],
     // The Coach's core (payload, validator, prompts, HTTP adapters) lives in ../api/coach/core
     // and is imported by the phone build. vite build and vitest already reach it; the dev
     // server needs to be told the workspace is wider than frontend/.

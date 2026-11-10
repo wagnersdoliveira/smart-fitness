@@ -90,6 +90,7 @@ const ProgrammeEdit = lazyView(() => import('./views/Programmes.jsx').then(m => 
 const Stats = lazyView(() => import('./views/Stats.jsx'))
 const History = lazyView(() => import('./views/History.jsx'))
 const Library = lazyView(() => import('./views/Library.jsx'))
+const Nutrition = lazyView(() => import('./components/NutriFit/NutriFit.jsx'))
 const Muscles = lazyView(() => import('./views/Muscles.jsx'))
 const SettingsRoute = lazyView(() => import('./views/Settings.jsx').then(m => ({ default: m.SettingsRoute })))
 // The app tour's overlay (components/Tour.jsx): fetched when it opens, never before.
@@ -344,6 +345,7 @@ function Shell() {
       <Route path="/stats" element={<Stats />} />
       <Route path="/history" element={<History />} />
       <Route path="/library" element={<Library />} />
+      <Route path="/nutrition" element={<Nutrition />} />
       <Route path="/muscles" element={<Muscles />} />
       <Route path="/structural-balance" element={<StructuralBalance />} />
       {isOn(S, 'body') && <Route path="/progress-photos" element={<ProgressPhotos />} />}
@@ -388,7 +390,7 @@ function Shell() {
       {/* Seasonal decoration (lib/seasonal.js): nothing, and nothing loaded, out of season. Never
           over a running workout or the first-launch screens. */}
       {authed && !needsMobileOnboarding && !permSteps && <SeasonalLayer hidden={inWorkout || loc.pathname === '/workout'} />}
-      {/* Your year in openGym (components/WrappedEntry.jsx): nothing loaded until it is opened. */}
+      {/* Your year in Smart Fitness (components/WrappedEntry.jsx): nothing loaded until it is opened. */}
       {authed && isOn(S, 'motivation') && <WrappedLayer ready={setupDone} />}
     </>
   )

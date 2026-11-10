@@ -1,4 +1,4 @@
-// What every shared picture of openGym has in common: the two formats, the light and dark looks
+// What every shared picture of Smart Fitness has in common: the two formats, the light and dark looks
 // and the logo in the corner. Pure drawing, no DOM: the workout card (lib/workout-card.js, after a
 // workout and in History) and Your year (lib/wrapped-cards.js) both paint with it, and
 // lib/share-image.js gets the picture out of the app. No exercise picture or clip is ever drawn
@@ -66,7 +66,7 @@ export function drawMark(ctx, x, y, h, color) {
 }
 
 /**
- * The footer every card ends with: the mark, "openGym" with "Gym" in the accent, and the site at
+ * The footer every card ends with: the mark, "Smart Fitness" with "Gym" in the accent, and the site at
  * the other end. `y` is the text's baseline. Drawn left to right whatever the language: it is a
  * logo, and a logo does not mirror.
  */
@@ -78,10 +78,10 @@ export function drawBrand(ctx, { x, y, width, colors, family, size = 40 }) {
   ctx.textAlign = 'left'
   ctx.font = `800 ${size}px ${family}`
   ctx.fillStyle = colors.label
-  ctx.fillText('open', tx, y)
-  tx += ctx.measureText('open').width
+  ctx.fillText('Smart ', tx, y)
+  tx += ctx.measureText('Smart ').width
   ctx.fillStyle = colors.accText || colors.acc
-  ctx.fillText('Gym', tx, y)
+  ctx.fillText('Fitness', tx, y)
   ctx.font = `600 ${Math.round(size * 0.72)}px ${family}`
   ctx.fillStyle = colors.label2
   ctx.textAlign = 'right'
