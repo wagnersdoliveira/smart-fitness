@@ -2,7 +2,7 @@
 // effectiveLang: the language a copy is shown in on this device, and the cached instance default
 // (rememberDefaultLang) that stands in for /api/config until it answers, so a boot does not flash
 // the browser's language first.
-import { beforeEach, describe, expect, it } from 'vitest'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { effectiveLang, rememberDefaultLang, browserLangs } from './default-lang.js'
 
 const auto = { lang: 'en', langAuto: true }
@@ -34,6 +34,21 @@ describe('effectiveLang', () => {
   })
   it('with nothing seen yet, shows the stored language unchanged until the config answers', () => {
     expect(effectiveLang({ lang: 'pt', langAuto: true }, null, ['it'])).toBe('pt')
+  })
+  it('with nothing seen yet, a build default (VITE_DEFAULT_LANG) names the language', () => {
+    vi.stubEnv('VITE_DEFAULT_LANG', 'pt-BR')
+    try {
+      expect(effectiveLang(auto, null, ['en-US'])).toBe('pt-BR')
+      // somebody who picked a language keeps it
+      expect(effectiveLang({ lang: 'en' }, null, ['en-US'])).toBe('en')
+      // an instance that answers still wins over the build default
+      expect(effectiveLang(auto, { default_lang: 'fr' }, ['en-US'])).toBe('fr')
+    } finally { vi.unstubAllEnvs() }
+  })
+  it('ignores a build default that is not one of the app\'s languages', () => {
+    vi.stubEnv('VITE_DEFAULT_LANG', 'xx')
+    try { expect(effectiveLang({ lang: 'pt', langAuto: true }, null, ['it'])).toBe('pt') }
+    finally { vi.unstubAllEnvs() }
   })
 })
 

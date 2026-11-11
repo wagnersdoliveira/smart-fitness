@@ -62,10 +62,21 @@ export function effectiveLang(S, config, navLangs = browserLangs()) {
   let cfg = config
   if (!cfg) {
     const seen = cachedDefaultLang()
-    if (seen === null) return own
-    cfg = { default_lang: seen }
+    if (seen !== null) cfg = { default_lang: seen }
+    else {
+      // No server has answered on this device yet (or there is none: a static host such as
+      // Vercel has no /api/config). A build that sets VITE_DEFAULT_LANG names the language.
+      const built = buildDefaultLang()
+      if (!built) return own
+      cfg = { default_lang: built }
+    }
   }
   return autoLang(S, cfg, navLangs) || own
+}
+
+/** The language this build was made for (VITE_DEFAULT_LANG), as one of LANGS' keys, or null. */
+function buildDefaultLang() {
+  try { return matchLocale(import.meta.env?.VITE_DEFAULT_LANG) } catch { return null }
 }
 
 export function browserLangs() {

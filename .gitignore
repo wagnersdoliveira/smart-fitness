@@ -52,3 +52,5 @@ frontend/pdf-samples/
 # Cloudflare fallback build (cloudflare/build.sh)
 /dist/
 .wrangler/
+.vercel
+.env.local
